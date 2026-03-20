@@ -312,13 +312,21 @@ function App() {
     const thinkTime = Math.floor(Math.random() * 4) + 2 // 2-5 seconds
     setTimeout(() => {
       let response = ''
-      if (locationCtx || addedCtx.length) {
-        const parts = []
-        if (locationCtx) parts.push(`"${locationCtx}"`)
-        if (addedCtx.length) parts.push(addedCtx.map(c => `"${c}"`).join(', '))
-        response = `I'd love to help you with that using context from ${parts.join(' and ')}, but unfortunately this is just a lofi mockup with no backend. Womp womp.`
+      const loc = locationCtx || 'Home'
+      const added = addedCtx.length ? addedCtx.join(', ') : null
+      const variant = Math.random() < 0.5 ? 0 : 1
+      if (added) {
+        if (variant === 0) {
+          response = `You're currently in ${loc}. Based on documents here, the relevant provisions address the key terms outlined in your query. I also considered material from ${added}, which suggests a similar clause structure and comparable precedent. That added context appears relevant because it reflects parallel deal terms, but it may reflect a different client, deal stage, or fact pattern.`
+        } else {
+          response = `Within ${loc}, I found references that address your question directly. I also referenced ${added}, which includes related contractual language and supporting detail. That added context supports the interpretation above, but it should be treated as comparative context, not the source of record for this matter.`
+        }
       } else {
-        response = 'Sorry, this is a lofi mockup and I currently have no backend to process your request. Womp womp.'
+        if (variant === 0) {
+          response = `You're currently in ${loc}. Based on documents here, the relevant provisions address the key terms outlined in your query. No additional context was provided, so this answer is scoped to the current location only.`
+        } else {
+          response = `Within ${loc}, I found references that address your question directly. This response is based solely on documents in the current location. You can add context from other matters or folders for a broader analysis.`
+        }
       }
       setAiThinking(false)
       setAiMessages(prev => [...prev, { role: 'assistant', text: response, thinkTime }])
