@@ -209,6 +209,19 @@ function flattenTree(tree, result = []) {
   return result
 }
 
+// ========== HELPERS (rendering) ==========
+
+function renderCitations(text) {
+  const parts = text.split(/(\[cite:\d+\])/)
+  return parts.map((part, i) => {
+    const match = part.match(/\[cite:(\d+)\]/)
+    if (match) {
+      return <span key={i}>[<span className="cite">{match[1]}</span>]</span>
+    }
+    return part
+  })
+}
+
 // ========== THOUGHT TOGGLE ==========
 
 function ThoughtToggle({ thinkTime }) {
@@ -317,15 +330,15 @@ function App() {
       const variant = Math.random() < 0.5 ? 0 : 1
       if (added) {
         if (variant === 0) {
-          response = `You're currently in ${loc}. Based on documents here, the relevant provisions address the key terms outlined in your query. I also considered material from ${added}, which suggests a similar clause structure and comparable precedent. That added context appears relevant because it reflects parallel deal terms, but it may reflect a different client, deal stage, or fact pattern.`
+          response = `Based on documents in ${loc}, the lease terms specify a five-year initial term with two renewal options [cite:1]. This is supported by draft agreements, executed contracts, and email threads, which show mutual consent to the base rent schedule and escalation clauses [cite:2]. Similar documents from ${added} reflect a comparable structure with annual CPI adjustments [cite:3], reinforcing this interpretation. The additional matter is provided as reference and may differ in scope or parties [cite:4].`
         } else {
-          response = `Within ${loc}, I found references that address your question directly. I also referenced ${added}, which includes related contractual language and supporting detail. That added context supports the interpretation above, but it should be treated as comparative context, not the source of record for this matter.`
+          response = `Documents in ${loc} indicate the indemnification clause covers third-party claims arising from tenant operations [cite:1], based on executed contracts and filed amendments showing consistent language across versions [cite:2]. Related documents from ${added} show a broader indemnity scope including environmental liability [cite:3], which reinforces this but may reflect a different context [cite:4].`
         }
       } else {
         if (variant === 0) {
-          response = `You're currently in ${loc}. Based on documents here, the relevant provisions address the key terms outlined in your query. No additional context was provided, so this answer is scoped to the current location only.`
+          response = `Based on documents in ${loc}, the lease terms specify a five-year initial term with two renewal options [cite:1]. This is supported by draft agreements and executed contracts, which show mutual consent to the base rent schedule and escalation clauses [cite:2]. No additional context was provided — you can add context from other matters for a broader analysis.`
         } else {
-          response = `Within ${loc}, I found references that address your question directly. This response is based solely on documents in the current location. You can add context from other matters or folders for a broader analysis.`
+          response = `Documents in ${loc} indicate the indemnification clause covers third-party claims arising from tenant operations [cite:1], based on executed contracts and filed amendments showing consistent language across versions [cite:2]. This response is scoped to the current location only.`
         }
       }
       setAiThinking(false)
@@ -757,7 +770,7 @@ function App() {
                   ? <div key={i} className="ai-msg-user">{msg.text}</div>
                   : <div key={i} className="ai-msg-assistant">
                       <ThoughtToggle thinkTime={msg.thinkTime} />
-                      <p>{msg.text}</p>
+                      <p>{renderCitations(msg.text)}</p>
                     </div>
               ))}
               {aiThinking && (
