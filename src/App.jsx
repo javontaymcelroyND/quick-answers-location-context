@@ -272,6 +272,11 @@ function App() {
     setContextSearch('')
   }
   const removeContextChip = (id) => setContextChips(contextChips.filter(c => c.id !== id))
+  const handleSend = () => {
+    if (!aiInput.trim()) return
+    setAiInput('')
+    setContextChips([])
+  }
 
   // ========== SIDEBAR TREE RENDERER ==========
   const renderSidebarNode = (node, depth = 0) => {
@@ -732,6 +737,12 @@ function App() {
                   rows={2}
                   value={aiInput}
                   onChange={(e) => setAiInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSend()
+                    }
+                  }}
                 />
                 <div className="ai-input-bottom-row">
                   <div className="options-anchor" ref={optionsRef}>
@@ -790,7 +801,7 @@ function App() {
                     Think longer
                     <div className="toggle"><div className="knob" /></div>
                   </div>
-                  <button className={`send-btn ${aiInput.trim() ? 'active' : ''}`}><SendRegular /></button>
+                  <button className={`send-btn ${aiInput.trim() ? 'active' : ''}`} onClick={handleSend}><SendRegular /></button>
                 </div>
               </div>
               <div className="ai-disclaimer">
