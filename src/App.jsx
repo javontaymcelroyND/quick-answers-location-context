@@ -209,6 +209,25 @@ function flattenTree(tree, result = []) {
   return result
 }
 
+// ========== THOUGHT TOGGLE ==========
+
+function ThoughtToggle({ thinkTime }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="thought-toggle">
+      <button className="thought-btn" onClick={() => setExpanded(!expanded)}>
+        {expanded ? <ChevronDownRegular style={{ fontSize: 12 }} /> : <ChevronRightRegular style={{ fontSize: 12 }} />}
+        Thought for {thinkTime}s
+      </button>
+      {expanded && (
+        <div className="thought-content">
+          No reasoning available — this is a lofi mockup.
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ========== APP ==========
 
 function App() {
@@ -222,10 +241,12 @@ function App() {
   const [contextSearch, setContextSearch] = useState('')
   const [contextFilter, setContextFilter] = useState('all')
   const [aiInput, setAiInput] = useState('')
+  const [aiMessages, setAiMessages] = useState([])
   const [expandedSidebar, setExpandedSidebar] = useState({ gtba: true })
   const [sidebarPinned, setSidebarPinned] = useState(false)
   const optionsRef = useRef(null)
   const contextRef = useRef(null)
+  const chatRef = useRef(null)
 
   useEffect(() => {
     const handler = (e) => {
@@ -238,6 +259,10 @@ function App() {
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
+
+  useEffect(() => {
+    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight
+  }, [aiMessages])
 
   const navigate = (id) => setCurrentId(id)
   const goHome = () => setCurrentId(null)
@@ -272,10 +297,32 @@ function App() {
     setContextSearch('')
   }
   const removeContextChip = (id) => setContextChips(contextChips.filter(c => c.id !== id))
+  const [aiThinking, setAiThinking] = useState(false)
+
   const handleSend = () => {
     if (!aiInput.trim()) return
+    const locationCtx = searchNdActive ? currentLabel : null
+    const addedCtx = contextChips.map(c => c.label)
+    const userText = aiInput.trim()
+    setAiMessages(prev => [...prev, { role: 'user', text: userText }])
     setAiInput('')
     setContextChips([])
+    setAiThinking(true)
+
+    const thinkTime = Math.floor(Math.random() * 4) + 2 // 2-5 seconds
+    setTimeout(() => {
+      let response = ''
+      if (locationCtx || addedCtx.length) {
+        const parts = []
+        if (locationCtx) parts.push(`"${locationCtx}"`)
+        if (addedCtx.length) parts.push(addedCtx.map(c => `"${c}"`).join(', '))
+        response = `I'd love to help you with that using context from ${parts.join(' and ')}, but unfortunately this is just a lofi mockup with no backend. Womp womp.`
+      } else {
+        response = 'Sorry, this is a lofi mockup and I currently have no backend to process your request. Womp womp.'
+      }
+      setAiThinking(false)
+      setAiMessages(prev => [...prev, { role: 'assistant', text: response, thinkTime }])
+    }, thinkTime * 1000)
   }
 
   // ========== SIDEBAR TREE RENDERER ==========
@@ -667,7 +714,7 @@ function App() {
                 <button title="Close" onClick={() => setAiOpen(false)}><DismissRegular /></button>
               </div>
             </div>
-            <div className="ai-chat">
+            <div className="ai-chat" ref={chatRef}>
               <div className="ai-msg-user">
                 What is the lease agreement of the madison plaza about?
               </div>
@@ -697,6 +744,21 @@ function App() {
                 <button title="Like"><ThumbLikeRegular /></button>
                 <button title="Dislike"><ThumbDislikeRegular /></button>
               </div>
+              {aiMessages.map((msg, i) => (
+                msg.role === 'user'
+                  ? <div key={i} className="ai-msg-user">{msg.text}</div>
+                  : <div key={i} className="ai-msg-assistant">
+                      <ThoughtToggle thinkTime={msg.thinkTime} />
+                      <p>{msg.text}</p>
+                    </div>
+              ))}
+              {aiThinking && (
+                <div className="ai-thinking">
+                  <SparkleRegular className="thinking-sparkle" />
+                  <span>Thinking</span>
+                  <span className="thinking-dots" />
+                </div>
+              )}
             </div>
             <div className="ai-input-area">
               <div className="ai-file-bar">
