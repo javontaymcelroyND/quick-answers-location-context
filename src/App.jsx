@@ -39,6 +39,7 @@ import {
   LocationAddRegular,
   CheckmarkRegular,
 } from '@fluentui/react-icons'
+import { Tag, TagGroup } from '@fluentui/react-components'
 import './App.css'
 
 // ========== DATA ==========
@@ -790,31 +791,49 @@ function App() {
                       <LocationRegular style={{ fontSize: 14 }} />
                       Context:
                     </span>
-                    <div className="search-chip" title={breadcrumbPath ? breadcrumbPath.map(p => p.label).join(' > ') : currentLabel}>
-                      {currentNode?.type === 'cabinet' && <ArchiveRegular style={{ fontSize: 14, color: '#4a8fd4', flexShrink: 0 }} />}
-                      {currentNode?.type === 'folder' && <FolderRegular style={{ fontSize: 14, color: '#e8a838', flexShrink: 0 }} />}
-                      <span className="search-chip-label">{currentLabel}</span>
-                      <button className="chip-dismiss" onClick={removeSearchChip}>
-                        <DismissRegular style={{ fontSize: 12 }} />
-                      </button>
-                    </div>
+                    <TagGroup onDismiss={removeSearchChip} className="search-chip-tag-group">
+                      <Tag
+                        dismissible
+                        appearance="outline"
+                        shape="rounded"
+                        size="small"
+                        value="search"
+                        title={breadcrumbPath ? breadcrumbPath.map(p => p.label).join(' > ') : currentLabel}
+                        icon={
+                          currentNode?.type === 'cabinet' ? <ArchiveRegular style={{ color: '#4a8fd4' }} /> :
+                          currentNode?.type === 'folder' ? <FolderRegular style={{ color: '#e8a838' }} /> :
+                          undefined
+                        }
+                      >
+                        {currentLabel}
+                      </Tag>
+                    </TagGroup>
                   </div>
                 )}
                 <button className="prompts-btn"><SlideTextSparkleRegular /> Prompts</button>
               </div>
               <div className="ai-input-wrap">
-                <div className="chip-row">
-                  {contextChips.map(chip => (
-                    <div className="context-chip" key={chip.id}>
-                      {chip.type === 'cabinet' && <ArchiveRegular style={{ fontSize: 14, color: '#4a8fd4' }} />}
-                      {chip.type === 'folder' && <FolderRegular style={{ fontSize: 14, color: '#e8a838' }} />}
-                      <span>{chip.label}</span>
-                      <button className="chip-dismiss" onClick={() => removeContextChip(chip.id)}>
-                        <DismissCircleRegular style={{ fontSize: 14 }} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                {contextChips.length > 0 && (
+                  <TagGroup onDismiss={(e, data) => removeContextChip(data.value)} className="chip-row">
+                    {contextChips.map(chip => (
+                      <Tag
+                        key={chip.id}
+                        dismissible
+                        appearance="outline"
+                        shape="rounded"
+                        size="small"
+                        value={chip.id}
+                        icon={
+                          chip.type === 'cabinet' ? <ArchiveRegular style={{ color: '#4a8fd4' }} /> :
+                          chip.type === 'folder' ? <FolderRegular style={{ color: '#e8a838' }} /> :
+                          undefined
+                        }
+                      >
+                        {chip.label}
+                      </Tag>
+                    ))}
+                  </TagGroup>
+                )}
                 <textarea
                   placeholder="Ask a question or provide instructions on a task you want to perform"
                   rows={2}
