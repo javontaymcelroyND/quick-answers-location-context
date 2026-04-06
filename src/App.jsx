@@ -33,11 +33,13 @@ import {
   ThumbLikeRegular,
   ThumbDislikeRegular,
   SendRegular,
-  SearchSparkleRegular,
   LocationRegular,
-  SlideTextSparkleRegular,
   LocationAddRegular,
   CheckmarkRegular,
+  SlideTextSparkleRegular,
+  GlobeRegular,
+  ScalesRegular,
+  CodeRegular,
 } from '@fluentui/react-icons'
 import { Tag, TagGroup } from '@fluentui/react-components'
 import './App.css'
@@ -46,10 +48,10 @@ import './App.css'
 
 const navTree = [
   {
-    id: 'gtba', label: 'Gamgee Took Brandybuck & Associates', type: 'matter',
+    id: 'gtba', label: 'Gamgee Took Brandybuck & Associates', type: 'cabinet',
     children: [
       {
-        id: 'gtba-contracts', label: 'Contracts', type: 'cabinet',
+        id: 'gtba-contracts', label: 'Contracts', type: 'matter',
         children: [
           { id: 'gtba-contracts-dummydocs', label: 'DummyDocs', type: 'folder' },
           { id: 'gtba-contracts-correspondence', label: 'Correspondence', type: 'folder' },
@@ -57,7 +59,7 @@ const navTree = [
         ]
       },
       {
-        id: 'gtba-litigation', label: 'Litigation', type: 'cabinet',
+        id: 'gtba-litigation', label: 'Litigation', type: 'matter',
         children: [
           { id: 'gtba-litigation-pleadings', label: 'Pleadings', type: 'folder' },
           { id: 'gtba-litigation-discovery', label: 'Discovery', type: 'folder' },
@@ -66,7 +68,7 @@ const navTree = [
         ]
       },
       {
-        id: 'gtba-corporate', label: 'Corporate', type: 'cabinet',
+        id: 'gtba-corporate', label: 'Corporate', type: 'matter',
         children: [
           { id: 'gtba-corporate-agreements', label: 'Agreements', type: 'folder' },
           { id: 'gtba-corporate-admin', label: 'Admin / Billing', type: 'folder' },
@@ -75,10 +77,10 @@ const navTree = [
     ]
   },
   {
-    id: 'meridian', label: 'Meridian Health Systems', type: 'matter',
+    id: 'meridian', label: 'Meridian Health Systems', type: 'cabinet',
     children: [
       {
-        id: 'meridian-compliance', label: 'Compliance', type: 'cabinet',
+        id: 'meridian-compliance', label: 'Compliance', type: 'matter',
         children: [
           { id: 'meridian-compliance-policies', label: 'Policies', type: 'folder' },
           { id: 'meridian-compliance-audits', label: 'Audits', type: 'folder' },
@@ -86,7 +88,7 @@ const navTree = [
         ]
       },
       {
-        id: 'meridian-employment', label: 'Employment', type: 'cabinet',
+        id: 'meridian-employment', label: 'Employment', type: 'matter',
         children: [
           { id: 'meridian-employment-contracts', label: 'Contracts', type: 'folder' },
           { id: 'meridian-employment-disputes', label: 'Disputes', type: 'folder' },
@@ -95,10 +97,10 @@ const navTree = [
     ]
   },
   {
-    id: 'redstone', label: 'Redstone Urban Properties LLC', type: 'matter',
+    id: 'redstone', label: 'Redstone Urban Properties LLC', type: 'cabinet',
     children: [
       {
-        id: 'redstone-realestate', label: 'Real Estate', type: 'cabinet',
+        id: 'redstone-realestate', label: 'Real Estate', type: 'matter',
         children: [
           { id: 'redstone-realestate-leases', label: 'Leases', type: 'folder' },
           { id: 'redstone-realestate-closings', label: 'Closings', type: 'folder' },
@@ -107,7 +109,7 @@ const navTree = [
         ]
       },
       {
-        id: 'redstone-litigation', label: 'Litigation', type: 'cabinet',
+        id: 'redstone-litigation', label: 'Litigation', type: 'matter',
         children: [
           { id: 'redstone-litigation-pleadings', label: 'Pleadings', type: 'folder' },
           { id: 'redstone-litigation-discovery', label: 'Discovery', type: 'folder' },
@@ -116,10 +118,10 @@ const navTree = [
     ]
   },
   {
-    id: 'apex', label: 'Apex Meridian Consulting Inc', type: 'matter',
+    id: 'apex', label: 'Apex Meridian Consulting Inc', type: 'cabinet',
     children: [
       {
-        id: 'apex-ma', label: 'M&A', type: 'cabinet',
+        id: 'apex-ma', label: 'M&A', type: 'matter',
         children: [
           { id: 'apex-ma-duediligence', label: 'Due Diligence', type: 'folder' },
           { id: 'apex-ma-agreements', label: 'Agreements', type: 'folder' },
@@ -127,7 +129,7 @@ const navTree = [
         ]
       },
       {
-        id: 'apex-ip', label: 'Intellectual Property', type: 'cabinet',
+        id: 'apex-ip', label: 'Intellectual Property', type: 'matter',
         children: [
           { id: 'apex-ip-patents', label: 'Patents', type: 'folder' },
           { id: 'apex-ip-trademarks', label: 'Trademarks', type: 'folder' },
@@ -137,10 +139,10 @@ const navTree = [
     ]
   },
   {
-    id: 'thornfield', label: 'Thornfield Capital Partners', type: 'matter',
+    id: 'thornfield', label: 'Thornfield Capital Partners', type: 'cabinet',
     children: [
       {
-        id: 'thornfield-fund', label: 'Fund Formation', type: 'cabinet',
+        id: 'thornfield-fund', label: 'Fund Formation', type: 'matter',
         children: [
           { id: 'thornfield-fund-lpas', label: 'LPAs', type: 'folder' },
           { id: 'thornfield-fund-sideletters', label: 'Side Letters', type: 'folder' },
@@ -148,7 +150,7 @@ const navTree = [
         ]
       },
       {
-        id: 'thornfield-regulatory', label: 'Regulatory', type: 'cabinet',
+        id: 'thornfield-regulatory', label: 'Regulatory', type: 'matter',
         children: [
           { id: 'thornfield-regulatory-filings', label: 'SEC Filings', type: 'folder' },
           { id: 'thornfield-regulatory-compliance', label: 'Compliance', type: 'folder' },
@@ -249,26 +251,17 @@ function App() {
   const [aiOpen, setAiOpen] = useState(false)
   const [currentId, setCurrentId] = useState(null) // null = home
   const [optionsOpen, setOptionsOpen] = useState(false)
-  const [searchNdActive, setSearchNdActive] = useState(false)
-  const [contextOpen, setContextOpen] = useState(false)
-  const [contextChips, setContextChips] = useState([])
-  const [contextSearch, setContextSearch] = useState('')
-  const [contextFilter, setContextFilter] = useState('all')
+  const [scopeCleared, setScopeCleared] = useState(false)
   const [aiInput, setAiInput] = useState('')
   const [aiMessages, setAiMessages] = useState([])
   const [expandedSidebar, setExpandedSidebar] = useState({ gtba: true })
   const [sidebarPinned, setSidebarPinned] = useState(false)
   const optionsRef = useRef(null)
-  const contextRef = useRef(null)
   const chatRef = useRef(null)
 
   useEffect(() => {
     const handler = (e) => {
       if (optionsRef.current && !optionsRef.current.contains(e.target)) setOptionsOpen(false)
-      if (contextRef.current && !contextRef.current.contains(e.target)) {
-        setContextOpen(false)
-        setContextSearch('')
-      }
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
@@ -278,11 +271,23 @@ function App() {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight
   }, [aiMessages])
 
+  // Reset scope override whenever the user navigates
+  useEffect(() => { setScopeCleared(false) }, [currentId])
+
   const navigate = (id) => setCurrentId(id)
   const goHome = () => setCurrentId(null)
 
   const currentNode = currentId ? findNode(navTree, currentId) : null
   const breadcrumbPath = currentId ? getPath(navTree, currentId) : null
+
+  // SA scope: mirrors nav state. When cleared, snaps to parent cabinet without redirecting.
+  const locationScope = (() => {
+    const base = currentNode || navTree[0]
+    if (!scopeCleared || base.type === 'cabinet') return base
+    return breadcrumbPath?.find(n => n.type === 'cabinet') || navTree[0]
+  })()
+
+  const clearToParentCabinet = () => setScopeCleared(true)
 
   const currentLabel = currentNode ? currentNode.label : 'Home'
   const searchPlaceholder = currentNode
@@ -294,53 +299,25 @@ function App() {
     setExpandedSidebar(prev => ({ ...prev, [id]: !prev[id] }))
   }
 
-  // Context popover
-  const allNodes = flattenTree(navTree)
-  const filteredContextNodes = contextSearch
-    ? allNodes.filter(n => n.label.toLowerCase().includes(contextSearch.toLowerCase()))
-    : allNodes
-
-  const handleSearchNd = () => { setSearchNdActive(true); setOptionsOpen(false) }
-  const removeSearchChip = () => setSearchNdActive(false)
-  const handleAddContext = () => { setContextOpen(true); setOptionsOpen(false) }
-  const addContextChip = (node) => {
-    if (!contextChips.find(c => c.id === node.id)) {
-      setContextChips([...contextChips, node])
-    }
-    setContextOpen(false)
-    setContextSearch('')
-  }
-  const removeContextChip = (id) => setContextChips(contextChips.filter(c => c.id !== id))
   const [aiThinking, setAiThinking] = useState(false)
 
   const handleSend = () => {
     if (!aiInput.trim()) return
-    const locationCtx = searchNdActive ? currentLabel : null
-    const addedCtx = contextChips.map(c => c.label)
+    const locationCtx = locationScope ? locationScope.label : null
     const userText = aiInput.trim()
     setAiMessages(prev => [...prev, { role: 'user', text: userText }])
     setAiInput('')
-    setContextChips([])
     setAiThinking(true)
 
     const thinkTime = Math.floor(Math.random() * 4) + 2 // 2-5 seconds
     setTimeout(() => {
       let response = ''
       const loc = locationCtx || 'Home'
-      const added = addedCtx.length ? addedCtx.join(', ') : null
       const variant = Math.random() < 0.5 ? 0 : 1
-      if (added) {
-        if (variant === 0) {
-          response = `Based on documents in ${loc}, the lease terms specify a five-year initial term with two renewal options [cite:1]. This is supported by draft agreements, executed contracts, and email threads, which show mutual consent to the base rent schedule and escalation clauses [cite:2]. Similar documents from ${added} reflect a comparable structure with annual CPI adjustments [cite:3], reinforcing this interpretation. The additional matter is provided as reference and may differ in scope or parties [cite:4].`
-        } else {
-          response = `Documents in ${loc} indicate the indemnification clause covers third-party claims arising from tenant operations [cite:1], based on executed contracts and filed amendments showing consistent language across versions [cite:2]. Related documents from ${added} show a broader indemnity scope including environmental liability [cite:3], which reinforces this but may reflect a different context [cite:4].`
-        }
+      if (variant === 0) {
+        response = `Based on documents in ${loc}, the lease terms specify a five-year initial term with two renewal options [cite:1]. This is supported by draft agreements and executed contracts, which show mutual consent to the base rent schedule and escalation clauses [cite:2]. This response is scoped to the current location only.`
       } else {
-        if (variant === 0) {
-          response = `Based on documents in ${loc}, the lease terms specify a five-year initial term with two renewal options [cite:1]. This is supported by draft agreements and executed contracts, which show mutual consent to the base rent schedule and escalation clauses [cite:2]. No additional context was provided — you can add context from other matters for a broader analysis.`
-        } else {
-          response = `Documents in ${loc} indicate the indemnification clause covers third-party claims arising from tenant operations [cite:1], based on executed contracts and filed amendments showing consistent language across versions [cite:2]. This response is scoped to the current location only.`
-        }
+        response = `Documents in ${loc} indicate the indemnification clause covers third-party claims arising from tenant operations [cite:1], based on executed contracts and filed amendments showing consistent language across versions [cite:2]. This response is scoped to the current location only.`
       }
       setAiThinking(false)
       setAiMessages(prev => [...prev, { role: 'assistant', text: response, thinkTime }])
@@ -368,7 +345,7 @@ function App() {
               ? <CaretDownRightFilled className="caret" />
               : <span className="caret" style={{ visibility: 'hidden' }}><CaretDownRightFilled /></span>
             }
-            {node.type === 'cabinet' && <ArchiveRegular className="icon" style={{ color: '#4a8fd4' }} />}
+            {node.type === 'matter' && <ArchiveRegular className="icon" style={{ color: '#4a8fd4' }} />}
             {node.type === 'folder' && <FolderRegular className="icon" style={{ color: '#e8a838' }} />}
             <span className="tree-text">{node.label}</span>
           </div>
@@ -379,52 +356,6 @@ function App() {
           </div>
         )}
       </div>
-    )
-  }
-
-  // ========== CONTEXT TREE RENDERER ==========
-  const getFilteredNodes = () => {
-    if (contextFilter === 'all') return null // use tree view
-    return allNodes.filter(n => n.type === contextFilter)
-  }
-
-  const renderContextNode = (node, depth = 0) => {
-    const hasChildren = node.children && node.children.length > 0
-    const depthClass = `depth-${Math.min(depth, 4)}`
-
-    // If searching, only show matches
-    if (contextSearch) {
-      const matches = node.label.toLowerCase().includes(contextSearch.toLowerCase())
-      const childMatches = hasChildren && node.children.some(c =>
-        c.label.toLowerCase().includes(contextSearch.toLowerCase()) ||
-        (c.children && c.children.some(gc => gc.label.toLowerCase().includes(contextSearch.toLowerCase())))
-      )
-      if (!matches && !childMatches) return null
-    }
-
-    return (
-      <div key={node.id}>
-        <button className={`context-item ${depthClass}`} onClick={() => addContextChip(node)}>
-          <CaretDownRightFilled className="context-caret" />
-          {node.type === 'cabinet' && <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 16, flexShrink: 0 }} />}
-          {node.type === 'folder' && <FolderRegular style={{ color: '#e8a838', fontSize: 16, flexShrink: 0 }} />}
-          <span className="context-item-name">{node.label}</span>
-        </button>
-        {hasChildren && node.children.map(child => renderContextNode(child, depth + 1))}
-      </div>
-    )
-  }
-
-  const renderFlatContextItem = (node) => {
-    const searchMatch = !contextSearch || node.label.toLowerCase().includes(contextSearch.toLowerCase())
-    if (!searchMatch) return null
-    return (
-      <button key={node.id} className="context-item depth-0" onClick={() => addContextChip(node)}>
-        {node.type === 'matter' && <CaretDownRightFilled className="context-caret" />}
-        {node.type === 'cabinet' && <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 16, flexShrink: 0 }} />}
-        {node.type === 'folder' && <FolderRegular style={{ color: '#e8a838', fontSize: 16, flexShrink: 0 }} />}
-        <span className="context-item-name">{node.label}</span>
-      </button>
     )
   }
 
@@ -453,12 +384,12 @@ function App() {
               <HistoryRegular className="fav-recent-icon" />
               <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 15 }} />
               <span className="fav-name">M&A</span>
-              <span className="fav-type">Cabinet</span>
+              <span className="fav-type">Matter</span>
             </div>
             <div className="fav-item" onClick={() => navigate('redstone')}>
               <HistoryRegular className="fav-recent-icon" />
               <span className="fav-name">Redstone Urban Properties LLC</span>
-              <span className="fav-type">Matter</span>
+              <span className="fav-type">Cabinet</span>
             </div>
             <div className="fav-item" onClick={() => navigate('thornfield-regulatory-filings')}>
               <HistoryRegular className="fav-recent-icon" />
@@ -470,7 +401,7 @@ function App() {
               <HistoryRegular className="fav-recent-icon" />
               <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 15 }} />
               <span className="fav-name">Employment</span>
-              <span className="fav-type">Cabinet</span>
+              <span className="fav-type">Matter</span>
             </div>
             <div className="fav-item">
               <HistoryRegular className="fav-recent-icon" />
@@ -482,7 +413,7 @@ function App() {
               <HistoryRegular className="fav-recent-icon" />
               <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 15 }} />
               <span className="fav-name">Corporate</span>
-              <span className="fav-type">Cabinet</span>
+              <span className="fav-type">Matter</span>
             </div>
           </div>
           </div>
@@ -492,13 +423,13 @@ function App() {
             <div className="fav-item" onClick={() => navigate('gtba')}>
               <StarRegular className="fav-star" />
               <span className="fav-name">Gamgee Took Brandybuck & Associates</span>
-              <span className="fav-type">Matter</span>
+              <span className="fav-type">Cabinet</span>
             </div>
             <div className="fav-item" onClick={() => navigate('meridian-compliance')}>
               <StarRegular className="fav-star" />
               <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 15 }} />
               <span className="fav-name">Compliance</span>
-              <span className="fav-type">Cabinet</span>
+              <span className="fav-type">Matter</span>
             </div>
             <div className="fav-item" onClick={() => navigate('redstone-realestate-leases')}>
               <StarRegular className="fav-star" />
@@ -528,7 +459,7 @@ function App() {
               <StarRegular className="fav-star" />
               <ArchiveRegular style={{ color: '#4a8fd4', fontSize: 15 }} />
               <span className="fav-name">Fund Formation</span>
-              <span className="fav-type">Cabinet</span>
+              <span className="fav-type">Matter</span>
             </div>
             <div className="fav-item">
               <StarRegular className="fav-star" />
@@ -543,8 +474,8 @@ function App() {
       )
     }
 
-    // Matter — show cabinets
-    if (currentNode.type === 'matter') {
+    // Cabinet — show matters
+    if (currentNode.type === 'cabinet') {
       return (
         <div className="home-view">
           <div className="breadcrumb" style={{ padding: '8px 0', marginBottom: 12 }}>
@@ -554,12 +485,12 @@ function App() {
             <span style={{ fontSize: 16 }}>{currentNode.label}</span>
             <ChevronDownRegular className="chevron" />
           </div>
-          <div className="favorites-label">Cabinets</div>
-          {currentNode.children?.map(cab => (
-            <div className="tree-item" key={cab.id} onClick={() => navigate(cab.id)} style={{ padding: '8px 0' }}>
+          <div className="favorites-label">Matters</div>
+          {currentNode.children?.map(matter => (
+            <div className="tree-item" key={matter.id} onClick={() => navigate(matter.id)} style={{ padding: '8px 0' }}>
               <div className="tree-label">
                 <ArchiveRegular className="icon" style={{ color: '#4a8fd4' }} />
-                <span className="tree-text" style={{ color: '#1a6bc4', cursor: 'pointer' }}>{cab.label}</span>
+                <span className="tree-text" style={{ color: '#1a6bc4', cursor: 'pointer' }}>{matter.label}</span>
               </div>
             </div>
           ))}
@@ -567,8 +498,8 @@ function App() {
       )
     }
 
-    // Cabinet — show folders
-    if (currentNode.type === 'cabinet') {
+    // Matter — show folders
+    if (currentNode.type === 'matter') {
       return (
         <div className="home-view">
           <div className="breadcrumb" style={{ padding: '8px 0', marginBottom: 12 }}>
@@ -736,6 +667,29 @@ function App() {
                 <button title="Close" onClick={() => setAiOpen(false)}><DismissRegular /></button>
               </div>
             </div>
+            <div key={locationScope.id} className="ai-context-bar">
+              <span className="search-context-label">
+                <LocationRegular style={{ fontSize: 14 }} />
+                Context:
+              </span>
+              <TagGroup onDismiss={clearToParentCabinet} className="search-chip-tag-group">
+                <Tag
+                  dismissible={locationScope.type !== 'cabinet'}
+                  appearance="outline"
+                  shape="rounded"
+                  size="small"
+                  value="location"
+                  title={locationScope.label}
+                  icon={
+                    locationScope.type === 'folder'
+                      ? <FolderRegular style={{ color: '#e8a838' }} />
+                      : <ArchiveRegular style={{ color: '#4a8fd4' }} />
+                  }
+                >
+                  {locationScope.label}
+                </Tag>
+              </TagGroup>
+            </div>
             <div className="ai-chat" ref={chatRef}>
               <div className="ai-msg-user">
                 What is the lease agreement of the madison plaza about?
@@ -785,55 +739,9 @@ function App() {
             <div className="ai-input-area">
               <div className="ai-file-bar">
                 <span className="files-label"><DocumentRegular /> 0 files</span>
-                {searchNdActive && (
-                  <div className="search-context-wrap">
-                    <span className="search-context-label">
-                      <LocationRegular style={{ fontSize: 14 }} />
-                      Context:
-                    </span>
-                    <TagGroup onDismiss={removeSearchChip} className="search-chip-tag-group">
-                      <Tag
-                        dismissible
-                        appearance="outline"
-                        shape="rounded"
-                        size="small"
-                        value="search"
-                        title={breadcrumbPath ? breadcrumbPath.map(p => p.label).join(' > ') : currentLabel}
-                        icon={
-                          currentNode?.type === 'cabinet' ? <ArchiveRegular style={{ color: '#4a8fd4' }} /> :
-                          currentNode?.type === 'folder' ? <FolderRegular style={{ color: '#e8a838' }} /> :
-                          undefined
-                        }
-                      >
-                        {currentLabel}
-                      </Tag>
-                    </TagGroup>
-                  </div>
-                )}
                 <button className="prompts-btn"><SlideTextSparkleRegular /> Prompts</button>
               </div>
               <div className="ai-input-wrap">
-                {contextChips.length > 0 && (
-                  <TagGroup onDismiss={(e, data) => removeContextChip(data.value)} className="chip-row">
-                    {contextChips.map(chip => (
-                      <Tag
-                        key={chip.id}
-                        dismissible
-                        appearance="outline"
-                        shape="rounded"
-                        size="small"
-                        value={chip.id}
-                        icon={
-                          chip.type === 'cabinet' ? <ArchiveRegular style={{ color: '#4a8fd4' }} /> :
-                          chip.type === 'folder' ? <FolderRegular style={{ color: '#e8a838' }} /> :
-                          undefined
-                        }
-                      >
-                        {chip.label}
-                      </Tag>
-                    ))}
-                  </TagGroup>
-                )}
                 <textarea
                   placeholder="Ask a question or provide instructions on a task you want to perform"
                   rows={2}
@@ -853,48 +761,27 @@ function App() {
                     </button>
                     {optionsOpen && (
                       <div className="options-popover">
-                        <button className="options-item" onClick={handleSearchNd}>
-                          <SearchSparkleRegular style={{ fontSize: 18 }} />
-                          Search NetDocuments
-                          {searchNdActive && <CheckmarkRegular style={{ marginLeft: 'auto', fontSize: 16, color: '#1a6bc4' }} />}
-                        </button>
-                        <button className="options-item" onClick={handleAddContext}>
+                        <button className="options-item" onClick={() => { setScopeCleared(prev => !prev); setOptionsOpen(false) }}>
                           <LocationAddRegular style={{ fontSize: 18 }} />
                           Add context
+                          {!scopeCleared && <CheckmarkRegular style={{ marginLeft: 'auto', fontSize: 16, color: '#1a6bc4' }} />}
                         </button>
-                      </div>
-                    )}
-                    {contextOpen && (
-                      <div className="context-popover" ref={contextRef}>
-                        <div className="context-sticky-header">
-                          <div className="context-search-wrap">
-                            <input
-                              className="context-search-input"
-                              type="text"
-                              placeholder="Search..."
-                              value={contextSearch}
-                              onChange={(e) => setContextSearch(e.target.value)}
-                              autoFocus
-                            />
-                          </div>
-                          <div className="context-filters">
-                            {['all', 'matter', 'cabinet', 'folder'].map(f => (
-                              <button
-                                key={f}
-                                className={`context-filter-chip ${contextFilter === f ? 'active' : ''}`}
-                                onClick={() => setContextFilter(f)}
-                              >
-                                {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1) + 's'}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="context-tree">
-                          {contextFilter === 'all'
-                            ? navTree.map(node => renderContextNode(node, 0))
-                            : getFilteredNodes().map(node => renderFlatContextItem(node))
-                          }
-                        </div>
+                        <button className="options-item">
+                          <GlobeRegular style={{ fontSize: 18 }} />
+                          Search the web
+                        </button>
+                        <button className="options-item">
+                          <ScalesRegular style={{ fontSize: 18 }} />
+                          Search EDGAR
+                        </button>
+                        <button className="options-item">
+                          <ScalesRegular style={{ fontSize: 18 }} />
+                          Search USPTO
+                        </button>
+                        <button className="options-item">
+                          <CodeRegular style={{ fontSize: 18 }} />
+                          Code interpreter
+                        </button>
                       </div>
                     )}
                   </div>

@@ -16,3 +16,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+#root > .fui-FluentProvider {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
